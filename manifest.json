@@ -1,12 +1,13 @@
 {
     "name": "KeybaseButton",
     "version": "1.0",
-    "manifest_version" : 2,
+    "manifest_version": 2,
     "description": "Keybase button for GitHub profiles",
+    "content_security_policy": "script-src 'self'; object-src 'self' https://github.global.ssl.fastly.net;",
     "content_scripts": [
         {
             "matches": ["https://github.com/*", "https://www.github.com/*"],
-            "js": ["scripts/jquery-2.0.0.min.js","scripts/main.js"],
+            "js": ["scripts/jquery-2.0.0.min.js", "scripts/main.js"],
             "run_at": "document_idle"
         }
     ],

@@ -22,10 +22,10 @@ function injectKeybaseButton() {
         $.ajax({
             type: 'HEAD',
             url: 'https://keybase.io/' + username,
-            success: function() {
+            success: function () {
                 injectKeybaseButtonUser(username);
             },
-            error: function() {
+            error: function () {
                 console.log("[KeyBase Add-on] KeyBase user profile could not be found");
             }
         });
@@ -45,9 +45,19 @@ function injectKeybaseButtonUser(username) {
     $('.tabnav-right > span:first-child > span')
         .removeAttr('class');
 
-    $('.tabnav-right > span:first-child > span > a')
-        .attr('href', 'https://www.keybase.io/' + username)
-        .html('<span class="octicon octicon-key"></span>Keybase');
+    var button = $('.tabnav-right > span:first-child > span > a');
+
+    if (button != null) {
+        button
+            .attr('href', 'https://www.keybase.io/' + username)
+            .html('<span class="octicon octicon-key"></span>Keybase');
+    } else {
+        var newButton = $('.tabnav-right > span:first-child > span > span > a');
+        newButton
+            //.attr('href', 'https://www.keybase.io/' + username)
+            .html('<span class="octicon octicon-key"></span>Keybase')
+            .click(function() {window.href = 'https://www.keybase.io/' + username});
+    }
 }
 
 chrome.extension.sendMessage({}, function (response) {
